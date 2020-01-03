@@ -1,3 +1,16 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Cloudformation template for deploying VPC resources with public subnets for Fargate running blockchain containers.
-
+  SubnetConfig:
+    VPC:
+      CIDR: '10.0.0.0/16'
+    PublicSubnetOneCIDR:
+      CIDR: '10.0.0.0/24'
+    PublicSubnetTwoCIDR:
+      CIDR: '10.0.1.0/24'
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      CidrBlock: !FindInMap ['SubnetConfig', 'VPC', 'CIDR']
