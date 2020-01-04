@@ -8,12 +8,12 @@ Description: Cloudformation template for deploying VPC resources with public sub
     PublicSubnetTwoCIDR:
       CIDR: '10.0.1.0/24'
 Resources:
+  # Add VPC resource
   VPC:
     Type: AWS::EC2::VPC
     Properties:
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
       CidrBlock: !FindInMap ['SubnetConfiguration', 'VPC', 'CIDR']
+  # add subnet resources
   PublicSubnetOne:
     Type: AWS::EC2::Subnet
     Properties:
@@ -34,6 +34,7 @@ Resources:
       VpcId: !Ref 'VPC'
       CidrBlock: !FindInMap ['SubnetConfiguration', 'PublicSubnetTwoCIDR', 'CIDR']
       MapPublicIpOnLaunch: true
+  # add igw resource
   InternetGateway:
     Type: AWS::EC2::InternetGateway
   GatewayAttachement:
@@ -41,6 +42,7 @@ Resources:
     Properties:
       VpcId: !Ref 'VPC'
       InternetGatewayId: !Ref 'InternetGateway'
+  # create public RT
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -62,3 +64,6 @@ Resources:
     Properties:
       SubnetId: !Ref PublicSubnetTwo
       RouteTableId: !Ref PublicRouteTable
+  # Add ECS Resource
+  ECSCluster:
+    Type: AWS::ECS::Cluster
