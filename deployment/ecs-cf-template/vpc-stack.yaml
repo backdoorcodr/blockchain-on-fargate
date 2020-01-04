@@ -69,23 +69,37 @@ Resources:
   # Add ECS Resource
   ECSCluster:
     Type: AWS::ECS::Cluster
+  # Lets make alb to accept traffic from internet but attaching the following sg
+  PublicLoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Access to the internet facing application load balancer
+      VpcId: !Ref 'VPC'
+      SecurityGroupIngress:
+          # Allow access to the alb from anywhere on the internet
+          - CidrIp: 0.0.0.0/0
+            IpProtocol: -1
   # Security group for the containers running on Fargate
-  FargateContainerSecurityGroup:
+  FargateContainersSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Access to the Fargate containers
       VpcId: !Ref 'VPC'
-  EcsSecurityGroupIngressFromPublicALB:
+  EcsSecurityGroupIngressFromPublicLB:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
-      Description: Ingress from the public ALB
-      GroupId: !Ref 'FargateContainerSecurityGroup'
+      Description: Ingress from the public application load balancer
+      GroupId: !Ref 'FargateContainersSecurityGroup'
       IpProtocol: -1
-      SourceSecurityGroupId: !Ref 'PublicLoadBalancerSG'
+      SourceSecurityGroupId: !Ref 'PublicLoadBalancerSecurityGroup'
   EcsSecurityGroupIngressFromSelf:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
       Description: Ingress from other containers in the same security group
-      GroupId: !Ref 'FargateContainerSecurityGroup'
+      GroupId: !Ref 'FargateContainersSecurityGroup'
       IpProtocol: -1
-      SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
+      SourceSecurityGroupId: !Ref 'FargateContainersSecurityGroup'
+
+
+
+  
