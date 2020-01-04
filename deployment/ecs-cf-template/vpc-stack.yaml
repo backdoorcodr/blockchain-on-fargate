@@ -99,7 +99,18 @@ Resources:
       GroupId: !Ref 'FargateContainersSecurityGroup'
       IpProtocol: -1
       SourceSecurityGroupId: !Ref 'FargateContainersSecurityGroup'
-
+  PublicLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internet-facing
+      LoadBalancerAttributes:
+      - Key: idle_timeout.timeout_seconds
+        Value: '30'
+      # Lets place the lb in the public subnet in order to allow the traffic to reach lb via the igw
+      Subnets:
+        - !Ref PublicSubnetOne
+        - !Ref PublicSubnetTwo
+      SecurityGroups: [!Ref 'PublicLoadBalancerSecurityGroup']
 
 
   
