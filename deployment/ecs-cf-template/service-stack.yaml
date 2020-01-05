@@ -22,6 +22,33 @@ Parameters:
   ContainerPort:
     Type: Number
     Default: 3000
-    Description: Exposed container port. 
+    Description: Exposed container port.
+  # Container resources configuration
+  ContainerCpu:
+    Type: Number
+    Default: 256
+    Description: Amount of CPU reserved for container.
+  ContainerMemory:
+    Type: Number
+    Default: 512
+    Description:Amount of RAM reserved for container.
+  Path:
+    Type: String
+    Default: "*"
+    Description: A path on the public load balancer that this service
+                 should be connected to. 
+  Priority:
+    Type: Number
+    Default: 1
+    Description: Priority of the routing rule. Relevant when we have multiple services running. 
+  DesiredCount:
+    Type: Number
+    Default: 2
+    Description: Fixed number of running tasks
+  Role:
+    Type: String
+    Default: ""
+    Description: (Optional) IAM role to access other AWS resources for e.g. S3, DynamoDB etc
+
 
 
