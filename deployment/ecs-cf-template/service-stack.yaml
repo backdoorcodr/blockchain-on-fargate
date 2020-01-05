@@ -6,6 +6,22 @@ Parameters:
     Type: String
     Default: FargateNetworkingStack
     Description: The name of the networking Fargate stack that was created in last step. Exported Outputs are used from this stack.
-
+  # Provide service name, by default this is provided as blockchain
+  ServiceName:
+    Type: String
+    Default: blockchain
+    Description: Name for the blockchain service
+  # Provide image url of the blockchain container. Since we have it store in ECR, and this is not public. 
+  # Therefore, please docker build this code here https://github.com/backdoorcodr/blockchain-on-kubernetes
+  # and publish it on relevant containers repository. 
+  ImageUrl:
+    Type: String
+    Default: 399827803559.dkr.ecr.eu-west-1.amazonaws.com/blockchain:3000
+    Description: Blockchain container image url of the blockchain container. Read comment above. 
+  # Update exposed container port. 
+  ContainerPort:
+    Type: Number
+    Default: 3000
+    Description: Exposed container port. 
 
 
