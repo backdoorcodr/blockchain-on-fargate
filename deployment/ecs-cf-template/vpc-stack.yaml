@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Cloudformation template for deploying VPC resources with public subnets for Fargate running blockchain containers.
+Mappings: 
   SubnetConfiguration:
     VPC:
       CIDR: '10.0.0.0/16'
