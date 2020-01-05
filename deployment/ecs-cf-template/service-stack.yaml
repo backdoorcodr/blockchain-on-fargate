@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deploy a service on AWS Fargate, hosted in a public subnet, and accessible via a public load balancer.
+Parameters:
+  # Provide name of networking stack that was created in the previous step 
+  StackName:
+    Type: String
+    Default: FargateNetworkingStack
+    Description: The name of the networking Fargate stack that was created in last step. Exported Outputs are used from this stack.
+
+
+
