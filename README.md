@@ -17,8 +17,8 @@ aws cloudformation deploy --template-file=deployment/ecs-cf-template/service-sta
 
 4. Once created, we need to enable to Container Insights.
 
-$ aws ecs put-account-setting --name "containerInsights" --value "enabled" --profile rvd-test-dev
+$ aws ecs put-account-setting --name "containerInsights" --value "enabled"
 
 and then
 
-$ aws ecs update-cluster-settings --cluster FargateNetworkingStack-ECSCluster-BW652L6JV184 --settings name=containerInsights,value=enabled --profile=rvd-test-dev
+$ aws ecs update-cluster-settings --cluster FargateNetworkingStack-ECSCluster-BW652L6JV184 --settings name=containerInsights,value=enabled
