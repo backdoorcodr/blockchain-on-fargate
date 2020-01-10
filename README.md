@@ -21,4 +21,4 @@ Deployment on Fargate using ECS Runtime:
 
 and then
 
-aws ecs update-cluster-settings --cluster FargateNetworkingStack-ECSCluster-BW652L6JV184 --settings name=containerInsights,value=enabled
+``` aws ecs update-cluster-settings --cluster FargateNetworkingStack-ECSCluster-BW652L6JV184 --settings name=containerInsights,value=enabled ```
